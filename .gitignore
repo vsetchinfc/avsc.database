@@ -1,0 +1,7 @@
+.directory
+bin
+obj
+*.dll
+coverage.json
+*.log
+payslip.csv
