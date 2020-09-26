@@ -16,12 +16,12 @@ namespace AVSC.Database.Connection
         }
 
         public SqlServerDbConnection
-            (
-                string serverName,
-                string username,
-                string password,
-                string databaseName
-            )
+        (
+            string serverName,
+            string username,
+            string password,
+            string databaseName
+        )
         {
             System.Data.SqlClient.SqlConnectionStringBuilder connectionStringBuilder = new System.Data.SqlClient.SqlConnectionStringBuilder()
             {
@@ -31,10 +31,10 @@ namespace AVSC.Database.Connection
                 InitialCatalog = databaseName
             };
 
-            this.ConnectionString = connectionStringBuilder.ConnectionString;
+            ConnectionString = connectionStringBuilder.ConnectionString;
         }
 
-        public IDbConnection GetDBConnection()
+        public IDbConnection GetDbConnection()
         {
             return new System.Data.SqlClient.SqlConnection(this.ConnectionString);
         }

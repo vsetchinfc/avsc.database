@@ -6,10 +6,16 @@ namespace AVSC.Database.Exceptions
 
         public NotSupportedDatabaseException (string message) : base(message) { }
 
-        public NotSupportedDatabaseException (string message, System.Exception inner) : base(message, inner) { } 
+        public NotSupportedDatabaseException 
+        (
+            string message, 
+            System.Exception inner
+        ) : base(message, inner) { } 
 
-        protected NotSupportedDatabaseException(
+        protected NotSupportedDatabaseException
+        (
             System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+            System.Runtime.Serialization.StreamingContext context
+        ) : base(info, context) { }
     }
 }

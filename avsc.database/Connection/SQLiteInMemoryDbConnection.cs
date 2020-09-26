@@ -11,9 +11,9 @@ namespace AVSC.Database.Connection
 
         public string ConnectionString { get; private set; } = "FullUri=file::memory:?cache=shared";
         
-        public IDbConnection GetDBConnection()
+        public IDbConnection GetDbConnection()
         {
-            return new SQLiteConnection(this.ConnectionString);
+            return new SQLiteConnection(ConnectionString);
         }
 
         public bool CreateDatabase()

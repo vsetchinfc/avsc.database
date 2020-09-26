@@ -13,16 +13,16 @@ namespace AVSC.Database.Connection
 
         public PostgresDbConnection(string connectionString)
         {
-            this.ConnectionString = connectionString;
+            ConnectionString = connectionString;
         }
 
         public PostgresDbConnection
-            (
-                string serverName,
-                string username,
-                string password,
-                string databaseName
-            )
+        (
+            string serverName,
+            string username,
+            string password,
+            string databaseName
+        )
         {
             NpgsqlConnectionStringBuilder postgresConnectionStringBuilder = new NpgsqlConnectionStringBuilder() 
             {
@@ -32,10 +32,10 @@ namespace AVSC.Database.Connection
                 Database = databaseName
             };
 
-            this.ConnectionString = postgresConnectionStringBuilder.ConnectionString;
+            ConnectionString = postgresConnectionStringBuilder.ConnectionString;
         }
 
-        public IDbConnection GetDBConnection()
+        public IDbConnection GetDbConnection()
         {
             return new NpgsqlConnection(this.ConnectionString);
         }

@@ -10,7 +10,7 @@ namespace AVSC.Database.Interfaces
         /// </summary>
         /// <value>string</value>
         string GeneratorId { get; }
-        IDbConnection GetDBConnection();
+        IDbConnection GetDbConnection();
         string ConnectionString { get; }
         bool CreateDatabase();
         bool DeleteDatabase();

@@ -13,16 +13,16 @@ namespace AVSC.Database.Connection
 
         public MySqlDbConnection(string connectionString)
         {
-            this.ConnectionString = connectionString;
+            ConnectionString = connectionString;
         }
 
         public MySqlDbConnection
-            (
-                string serverName,
-                string username,
-                string password,
-                string databaseName
-            )
+        (
+            string serverName,
+            string username,
+            string password,
+            string databaseName
+        )
         {
             MySqlConnectionStringBuilder mySqlConnectionStringBuilder = new MySqlConnectionStringBuilder() 
             {
@@ -35,7 +35,7 @@ namespace AVSC.Database.Connection
             this.ConnectionString = mySqlConnectionStringBuilder.ToString();
         }
 
-        public IDbConnection GetDBConnection()
+        public IDbConnection GetDbConnection()
         {
             return new MySqlConnection(this.ConnectionString);
         }
