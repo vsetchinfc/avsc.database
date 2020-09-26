@@ -150,6 +150,6 @@ namespace AVSC.Database
                 databaseSettings.DatabaseName
             );
         }
-        #endregion // Get IDBConnection
+        #endregion // Get IDbConnection
     }
 }
