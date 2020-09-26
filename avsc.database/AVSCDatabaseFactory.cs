@@ -1,3 +1,4 @@
+using System.Data;
 using AVSC.Database.Connection;
 using AVSC.Database.Enums;
 using AVSC.Database.Exceptions;
@@ -92,18 +93,63 @@ namespace AVSC.Database
 			configuration.Bind(databaseSettings);
 
 			return AVSCDatabaseFactory.GetIAVSCDatabase
-                (
-                    databaseSettings.DatabaseType,
-                    databaseSettings.ServerName,
-                    databaseSettings.Username, 
-                    databaseSettings.Password, 
-                    databaseSettings.DatabaseName
-                );
+            (
+                databaseSettings.DatabaseType,
+                databaseSettings.ServerName,
+                databaseSettings.Username, 
+                databaseSettings.Password, 
+                databaseSettings.DatabaseName
+            );
         }
         #endregion // Get AVSCDatabase
 
-        #region Get IDBConnection
+        #region Get IDbConnection
+        public static IDbConnection GetIDbConnection
+        (
+            DatabaseType databaseType,
+            string serverName,
+            string username,
+            string password,
+            string databaseName
+        )
+        {
+            IAVSCDatabase db = AVSCDatabaseFactory.GetIAVSCDatabase(databaseType, serverName, username, password, databaseName);
 
+            return db.GetDbConnection();
+        }
+
+        public static IDbConnection GetIDbConnection
+        (
+            DatabaseType databaseType,
+            string connectionString
+        )
+        {
+            IAVSCDatabase db = AVSCDatabaseFactory.GetIAVSCDatabase(databaseType, connectionString);
+
+            return db.GetDbConnection();
+        }
+
+        public static IDbConnection GetInMemoryIDbConnection()
+        {
+            IAVSCDatabase db = AVSCDatabaseFactory.GetIAVSCInMemoryDatabase();
+
+            return db.GetDbConnection();
+        }
+
+        public static IDbConnection GetIDbConnection(IConfiguration configuration)
+        {
+			var databaseSettings = new DatabaseSettings();
+			configuration.Bind(databaseSettings);
+
+			return AVSCDatabaseFactory.GetIDbConnection
+            (
+                databaseSettings.DatabaseType,
+                databaseSettings.ServerName,
+                databaseSettings.Username, 
+                databaseSettings.Password, 
+                databaseSettings.DatabaseName
+            );
+        }
         #endregion // Get IDBConnection
     }
 }
