@@ -24,13 +24,14 @@ namespace AVSC.Database.Connection
             string databaseName
         )
         {
-            NpgsqlConnectionStringBuilder postgresConnectionStringBuilder = new NpgsqlConnectionStringBuilder() 
-            {
-                Host = serverName,
-                Username = username,
-                Password = password,
-                Database = databaseName
-            };
+            NpgsqlConnectionStringBuilder postgresConnectionStringBuilder
+                = new NpgsqlConnectionStringBuilder()
+                {
+                    Host = serverName,
+                    Username = username,
+                    Password = password,
+                    Database = databaseName
+                };
 
             ConnectionString = postgresConnectionStringBuilder.ConnectionString;
         }

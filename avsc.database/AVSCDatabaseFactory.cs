@@ -25,24 +25,27 @@ namespace AVSC.Database
             switch (databaseType)
             {
                 case DatabaseType.Postgres:
-                {
-                    db = new PostgresDbConnection(serverName, username, password, databaseName);
-                }
-                break;
+                    {
+                        db = new PostgresDbConnection(
+                            serverName, username, password, databaseName);
+                    }
+                    break;
                 case DatabaseType.MySql:
-                {
-                    db = new MySqlDbConnection(serverName, username, password, databaseName);
-                }
-                break;
+                    {
+                        db = new MySqlDbConnection(
+                            serverName, username, password, databaseName);
+                    }
+                    break;
                 case DatabaseType.SqlServer:
-                {
-                    db = new SqlServerDbConnection(serverName, username, password, databaseName);
-                }
-                break;
+                    {
+                        db = new SqlServerDbConnection(
+                            serverName, username, password, databaseName);
+                    }
+                    break;
                 default:
-                {
-                    throw new NotSupportedDatabaseException();
-                }
+                    {
+                        throw new NotSupportedDatabaseException();
+                    }
             }
 
             return db;
@@ -59,24 +62,24 @@ namespace AVSC.Database
             switch (databaseType)
             {
                 case DatabaseType.Postgres:
-                {
-                    db = new PostgresDbConnection(connectionString);
-                }
-                break;
+                    {
+                        db = new PostgresDbConnection(connectionString);
+                    }
+                    break;
                 case DatabaseType.MySql:
-                {
-                    db = new MySqlDbConnection(connectionString);
-                }
-                break;
+                    {
+                        db = new MySqlDbConnection(connectionString);
+                    }
+                    break;
                 case DatabaseType.SqlServer:
-                {
-                    db = new SqlServerDbConnection(connectionString);
-                }
-                break;
+                    {
+                        db = new SqlServerDbConnection(connectionString);
+                    }
+                    break;
                 default:
-                {
-                    throw new NotSupportedDatabaseException();
-                }
+                    {
+                        throw new NotSupportedDatabaseException();
+                    }
             }
 
             return db;
@@ -87,17 +90,20 @@ namespace AVSC.Database
             return new SQLiteInMemoryDbConnection();
         }
 
-        public static IAVSCDatabase GetIAVSCDatabase(IConfiguration configuration)
+        public static IAVSCDatabase GetIAVSCDatabase
+        (
+            IConfiguration configuration
+        )
         {
-			var databaseSettings = new DatabaseSettings();
-			configuration.Bind(databaseSettings);
+            var databaseSettings = new DatabaseSettings();
+            configuration.Bind(databaseSettings);
 
-			return AVSCDatabaseFactory.GetIAVSCDatabase
+            return AVSCDatabaseFactory.GetIAVSCDatabase
             (
                 databaseSettings.DatabaseType,
                 databaseSettings.ServerName,
-                databaseSettings.Username, 
-                databaseSettings.Password, 
+                databaseSettings.Username,
+                databaseSettings.Password,
                 databaseSettings.DatabaseName
             );
         }
@@ -113,7 +119,9 @@ namespace AVSC.Database
             string databaseName
         )
         {
-            IAVSCDatabase db = AVSCDatabaseFactory.GetIAVSCDatabase(databaseType, serverName, username, password, databaseName);
+            IAVSCDatabase db
+                = AVSCDatabaseFactory.GetIAVSCDatabase(
+                    databaseType, serverName, username, password, databaseName);
 
             return db.GetDbConnection();
         }
@@ -124,7 +132,9 @@ namespace AVSC.Database
             string connectionString
         )
         {
-            IAVSCDatabase db = AVSCDatabaseFactory.GetIAVSCDatabase(databaseType, connectionString);
+            IAVSCDatabase db
+                = AVSCDatabaseFactory.GetIAVSCDatabase(
+                    databaseType, connectionString);
 
             return db.GetDbConnection();
         }
@@ -136,17 +146,20 @@ namespace AVSC.Database
             return db.GetDbConnection();
         }
 
-        public static IDbConnection GetIDbConnection(IConfiguration configuration)
+        public static IDbConnection GetIDbConnection
+        (
+            IConfiguration configuration
+        )
         {
-			var databaseSettings = new DatabaseSettings();
-			configuration.Bind(databaseSettings);
+            var databaseSettings = new DatabaseSettings();
+            configuration.Bind(databaseSettings);
 
-			return AVSCDatabaseFactory.GetIDbConnection
+            return AVSCDatabaseFactory.GetIDbConnection
             (
                 databaseSettings.DatabaseType,
                 databaseSettings.ServerName,
-                databaseSettings.Username, 
-                databaseSettings.Password, 
+                databaseSettings.Username,
+                databaseSettings.Password,
                 databaseSettings.DatabaseName
             );
         }

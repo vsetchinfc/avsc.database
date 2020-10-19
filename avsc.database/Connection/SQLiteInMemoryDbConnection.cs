@@ -9,8 +9,9 @@ namespace AVSC.Database.Connection
     {
         public string GeneratorId { get; } = "Sqlite";
 
-        public string ConnectionString { get; private set; } = "FullUri=file::memory:?cache=shared";
-        
+        public string ConnectionString { get; private set; }
+            = "FullUri=file::memory:?cache=shared";
+
         public IDbConnection GetDbConnection()
         {
             return new SQLiteConnection(ConnectionString);

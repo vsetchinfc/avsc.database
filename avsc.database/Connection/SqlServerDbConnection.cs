@@ -23,13 +23,15 @@ namespace AVSC.Database.Connection
             string databaseName
         )
         {
-            System.Data.SqlClient.SqlConnectionStringBuilder connectionStringBuilder = new System.Data.SqlClient.SqlConnectionStringBuilder()
-            {
-                DataSource = serverName,
-                UserID = username,
-                Password = password,
-                InitialCatalog = databaseName
-            };
+            System.Data.SqlClient.SqlConnectionStringBuilder
+                connectionStringBuilder
+                    = new System.Data.SqlClient.SqlConnectionStringBuilder()
+                    {
+                        DataSource = serverName,
+                        UserID = username,
+                        Password = password,
+                        InitialCatalog = databaseName
+                    };
 
             ConnectionString = connectionStringBuilder.ConnectionString;
         }

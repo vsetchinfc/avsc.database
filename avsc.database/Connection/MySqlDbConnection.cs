@@ -8,7 +8,7 @@ namespace AVSC.Database.Connection
     internal class MySqlDbConnection : IAVSCDatabase
     {
         public string GeneratorId { get; } = "MySql";
-        
+
         public string ConnectionString { get; private set; } = string.Empty;
 
         public MySqlDbConnection(string connectionString)
@@ -24,13 +24,14 @@ namespace AVSC.Database.Connection
             string databaseName
         )
         {
-            MySqlConnectionStringBuilder mySqlConnectionStringBuilder = new MySqlConnectionStringBuilder() 
-            {
-                Server = serverName,
-                UserID = username,
-                Password = password,
-                Database = databaseName
-            };
+            MySqlConnectionStringBuilder mySqlConnectionStringBuilder
+                = new MySqlConnectionStringBuilder()
+                {
+                    Server = serverName,
+                    UserID = username,
+                    Password = password,
+                    Database = databaseName
+                };
 
             this.ConnectionString = mySqlConnectionStringBuilder.ToString();
         }
