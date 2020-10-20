@@ -16,11 +16,8 @@ namespace AVSC.Database.Tests
             string expectedGeneratorId
         )
         {
-            string connectionString = string.Empty;
-
-            var db
-            = AVSCDatabaseFactory.GetIAVSCDatabase(
-                databaseType, connectionString);
+            var db = AVSCDatabaseFactory.GetIAVSCDatabase(
+                databaseType, connectionString: string.Empty);
             db.GeneratorId.Should().Be(expectedGeneratorId);
         }
 
@@ -30,7 +27,7 @@ namespace AVSC.Database.Tests
             Assert.Throws<NotSupportedDatabaseException>(() =>
                 AVSCDatabaseFactory.GetIAVSCDatabase(
                     DatabaseType.None,
-                    string.Empty
+                    connectionString: string.Empty
                 )
             );
         }
