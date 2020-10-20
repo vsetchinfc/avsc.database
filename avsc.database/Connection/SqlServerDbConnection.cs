@@ -38,7 +38,8 @@ namespace AVSC.Database.Connection
 
         public IDbConnection GetDbConnection()
         {
-            return new System.Data.SqlClient.SqlConnection(this.ConnectionString);
+            return new System.Data.SqlClient.SqlConnection(
+                this.ConnectionString);
         }
 
         public bool CreateDatabase()

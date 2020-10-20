@@ -5,3 +5,4 @@ obj
 coverage.json
 *.log
 payslip.csv
+cov.xml

@@ -2,6 +2,8 @@ using NUnit.Framework;
 using AVSC.Database.Enums;
 using FluentAssertions;
 using AVSC.Database.Exceptions;
+using System.Data;
+using System.Data.SQLite;
 
 namespace AVSC.Database.Tests
 {
@@ -30,6 +32,20 @@ namespace AVSC.Database.Tests
                     connectionString: string.Empty
                 )
             );
+        }
+
+        [Test]
+        public void GetIAVSCInMemoryDatabaseSuccess()
+        {
+            var db = AVSCDatabaseFactory.GetIAVSCInMemoryDatabase();
+            db.GeneratorId.Should().Be("Sqlite");
+        }
+
+        [Test]
+        public void GetInMemoryIDbConnectionSuccess()
+        {
+            var iDbConnection = AVSCDatabaseFactory.GetInMemoryIDbConnection();
+            iDbConnection.Should().BeOfType<SQLiteConnection>();
         }
     }
 }
