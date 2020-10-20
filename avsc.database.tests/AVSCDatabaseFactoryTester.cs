@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using AVSC.Database.Enums;
 using FluentAssertions;
+using AVSC.Database.Exceptions;
 
 namespace AVSC.Database.Tests
 {
@@ -9,7 +10,6 @@ namespace AVSC.Database.Tests
         [TestCase(DatabaseType.MySql, "MySql")]
         [TestCase(DatabaseType.Postgres, "Postgres")]
         [TestCase(DatabaseType.SqlServer, "SqlServer")]
-        // [TestCase(DatabaseType.None, "")]
         public void GetIAVSCDatabaseByDatabaseType
         (
             DatabaseType databaseType,
@@ -22,6 +22,17 @@ namespace AVSC.Database.Tests
             = AVSCDatabaseFactory.GetIAVSCDatabase(
                 databaseType, connectionString);
             db.GeneratorId.Should().Be(expectedGeneratorId);
+        }
+
+        [Test]
+        public void GetIAVSCDatabaseByNoneDatabaseType()
+        {
+            Assert.Throws<NotSupportedDatabaseException>(() =>
+                AVSCDatabaseFactory.GetIAVSCDatabase(
+                    DatabaseType.None,
+                    string.Empty
+                )
+            );
         }
     }
 }
