@@ -4,23 +4,30 @@ using FluentAssertions;
 using AVSC.Database.Exceptions;
 using System.Data;
 using System.Data.SQLite;
+using System;
+using Npgsql;
+using MySqlConnector;
+using System.Data.SqlClient;
 
 namespace AVSC.Database.Tests
 {
     public class AVSCDatabaseFactoryTester
     {
-        [TestCase(DatabaseType.MySql, "MySql")]
-        [TestCase(DatabaseType.Postgres, "Postgres")]
-        [TestCase(DatabaseType.SqlServer, "SqlServer")]
+        [TestCase(DatabaseType.MySql, "MySql", typeof(MySqlConnection))]
+        [TestCase(DatabaseType.Postgres, "Postgres", typeof(NpgsqlConnection))]
+        [TestCase(DatabaseType.SqlServer, "SqlServer", typeof(SqlConnection))]
         public void GetIAVSCDatabaseByDatabaseType
         (
             DatabaseType databaseType,
-            string expectedGeneratorId
+            string expectedGeneratorId,
+            Type expectedDatabaseType
         )
         {
             var db = AVSCDatabaseFactory.GetIAVSCDatabase(
                 databaseType, connectionString: string.Empty);
             db.GeneratorId.Should().Be(expectedGeneratorId);
+            var iDbConnection = db.GetDbConnection();
+            iDbConnection.GetType().Should().Be(expectedDatabaseType);
         }
 
         [Test]
