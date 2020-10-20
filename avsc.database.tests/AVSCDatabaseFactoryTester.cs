@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using AVSC.Database.Enums;
+using FluentAssertions;
 
 namespace AVSC.Database.Tests
 {
@@ -20,7 +21,7 @@ namespace AVSC.Database.Tests
             var db
             = AVSCDatabaseFactory.GetIAVSCDatabase(
                 databaseType, connectionString);
-            Assert.AreEqual(db.GeneratorId, expectedGeneratorId);
+            db.GeneratorId.Should().Be(expectedGeneratorId);
         }
     }
 }
