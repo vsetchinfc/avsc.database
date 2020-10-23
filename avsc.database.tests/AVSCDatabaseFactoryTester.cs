@@ -2,14 +2,11 @@ using NUnit.Framework;
 using AVSC.Database.Enums;
 using FluentAssertions;
 using AVSC.Database.Exceptions;
-using System.Data;
 using System.Data.SQLite;
 using System;
 using Npgsql;
 using MySqlConnector;
 using System.Data.SqlClient;
-using FizzWare.NBuilder;
-using Moq;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
