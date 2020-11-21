@@ -16,18 +16,21 @@ namespace AVSC.Database.Tests
     {
         public static string AppSettingsFile = "appsettings.json";
 
-        [TestCase(DatabaseType.MySql, "MySql", typeof(MySqlConnection))]
-        [TestCase(DatabaseType.Postgres, "Postgres", typeof(NpgsqlConnection))]
-        [TestCase(DatabaseType.SqlServer, "SqlServer", typeof(SqlConnection))]
+        [TestCase(DatabaseType.MySql, "MySql", "", typeof(MySqlConnection))]
+        [TestCase(DatabaseType.Postgres, "Postgres",
+            "Host=localhost;Port=5432;", typeof(NpgsqlConnection))]
+        [TestCase(DatabaseType.SqlServer, "SqlServer",
+            "", typeof(SqlConnection))]
         public void GetIAVSCDatabaseByDatabaseType
         (
             DatabaseType databaseType,
             string expectedGeneratorId,
+            string connectionString,
             Type expectedDatabaseType
         )
         {
             var avscDatabase = AVSCDatabaseFactory.GetIAVSCDatabase(
-                databaseType, connectionString: string.Empty);
+                databaseType, connectionString);
             avscDatabase.GeneratorId.Should().Be(expectedGeneratorId);
             var iDbConnection = avscDatabase.GetDbConnection();
             iDbConnection.GetType().Should().Be(expectedDatabaseType);
@@ -58,19 +61,20 @@ namespace AVSC.Database.Tests
             iDbConnection.Should().BeOfType<SQLiteConnection>();
         }
 
-        [TestCase(DatabaseType.MySql, "MySql", typeof(MySqlConnection))]
-        [TestCase(DatabaseType.Postgres, "Postgres", typeof(NpgsqlConnection))]
-        [TestCase(DatabaseType.SqlServer, "SqlServer", typeof(SqlConnection))]
+        [TestCase(DatabaseType.MySql, "MySql", "", typeof(MySqlConnection))]
+        [TestCase(DatabaseType.Postgres, "Postgres", "localhost", typeof(NpgsqlConnection))]
+        [TestCase(DatabaseType.SqlServer, "SqlServer", "", typeof(SqlConnection))]
         public void GetIAVSCDatabaseByParametersSuccess
         (
             DatabaseType databaseType,
             string expectedGeneratorId,
+            string serverName,
             Type expectedDatabaseType
         )
         {
             var avscDatabase = AVSCDatabaseFactory.GetIAVSCDatabase(
                 databaseType,
-                serverName: string.Empty,
+                serverName,
                 username: string.Empty,
                 password: string.Empty,
                 databaseName: string.Empty
@@ -95,18 +99,19 @@ namespace AVSC.Database.Tests
             );
         }
 
-        [TestCase(DatabaseType.MySql, typeof(MySqlConnection))]
-        [TestCase(DatabaseType.Postgres, typeof(NpgsqlConnection))]
-        [TestCase(DatabaseType.SqlServer, typeof(SqlConnection))]
+        [TestCase(DatabaseType.MySql, "", typeof(MySqlConnection))]
+        [TestCase(DatabaseType.Postgres, "localhost", typeof(NpgsqlConnection))]
+        [TestCase(DatabaseType.SqlServer, "", typeof(SqlConnection))]
         public void GetIDbConnectionByParametersSuccess
         (
             DatabaseType databaseType,
+            string serverName,
             Type expectedDatabaseType
         )
         {
             var iDbConnection = AVSCDatabaseFactory.GetIDbConnection(
                 databaseType,
-                serverName: string.Empty,
+                serverName,
                 username: string.Empty,
                 password: string.Empty,
                 databaseName: string.Empty
@@ -115,18 +120,20 @@ namespace AVSC.Database.Tests
             iDbConnection.GetType().Should().Be(expectedDatabaseType);
         }
 
-        [TestCase(DatabaseType.MySql, typeof(MySqlConnection))]
-        [TestCase(DatabaseType.Postgres, typeof(NpgsqlConnection))]
-        [TestCase(DatabaseType.SqlServer, typeof(SqlConnection))]
+        [TestCase(DatabaseType.MySql, "", typeof(MySqlConnection))]
+        [TestCase(DatabaseType.Postgres,
+            "Host=localhost;Port=5432;", typeof(NpgsqlConnection))]
+        [TestCase(DatabaseType.SqlServer, "", typeof(SqlConnection))]
         public void GetIDbConnectionByDatabaseTypeAndConnectionStringSuccess
         (
             DatabaseType databaseType,
+            string connectionString,
             Type expectedDatabaseType
         )
         {
             var iDbConnection = AVSCDatabaseFactory.GetIDbConnection(
                 databaseType,
-                connectionString: string.Empty
+                connectionString
             );
 
             iDbConnection.GetType().Should().Be(expectedDatabaseType);
