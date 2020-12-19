@@ -7,7 +7,7 @@ namespace AVSC.Database.Connection
 {
     internal class MySqlDbConnection : IAVSCDatabase
     {
-        public string GeneratorId { get; } = "MySql1";
+        public string GeneratorId { get; } = "MySql";
 
         public string ConnectionString { get; private set; } = string.Empty;
 
